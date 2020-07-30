@@ -5,6 +5,7 @@ import wikipedia
 import smtplib
 import webbrowser as wb
 import os
+import pyautogui
 
 engine = pyttsx3.init()
 
@@ -124,7 +125,19 @@ if __name__ == "__main__":
         elif 'play songs' in query:
             songs_dir = 'D:\\Music'
             songs = os.listdir(songs_dir)
-            os.startfile(os.path.join(songs_dir,songs[0]))
+            os.sartfile(os.path.join(songs_dir,songs[0]))
+
+        elif 'remember that' in query:
+            speak("What should I remember?")
+            data = takeCommand()
+            speak("you said me to remember that"+data)
+            remember = open('data.txt','w')
+            remember.write(data)
+            remember.close()
+
+        elif 'do you know anything' in query:
+            remember = open('data.txt','r')
+            speak("you said me to remember that"+remember.read())
 
         elif 'offline' in query:
             quit()    
