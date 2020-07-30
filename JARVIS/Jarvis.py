@@ -6,6 +6,8 @@ import smtplib
 import webbrowser as wb
 import os
 import pyautogui
+import psutil
+import pyjokes
 
 engine = pyttsx3.init()
 
@@ -82,6 +84,20 @@ def sendEmail(to, content):
     server.sendmail('abcd@gmail.com', to, content)
     server.close()
 
+def screenshot():
+    img = pyautogui.screenshot()
+    img.save("F:\\ADVAIT\\UDEMY\\JARVIS\\JARVIS\\ss.png")
+
+def cpu():
+    usage = str(psutil.cpu_percent())
+    speak("CPU is at"+usage)
+    battery = psutil.sensors_battery()
+    speak("Battery is at")
+    speak(battery.percent)
+
+def jokes():
+    speak(pyjokes.get_joke())
+
 if __name__ == "__main__":
     wishme()
     while True:
@@ -138,6 +154,16 @@ if __name__ == "__main__":
         elif 'do you know anything' in query:
             remember = open('data.txt','r')
             speak("you said me to remember that"+remember.read())
+
+        elif 'screenshot' in query:
+            screenshot()
+            speak("Done!")
+
+        elif 'cpu' in query:
+            cpu()
+
+        elif 'joke' in query:
+            jokes()
 
         elif 'offline' in query:
             quit()    
